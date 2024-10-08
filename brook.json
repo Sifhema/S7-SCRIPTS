@@ -1,1 +1,20 @@
 
+{
+  "scripts": [
+    {
+      "title": "سكربت 1",
+      "description": "هذا هو الوصف الخاص بالسكربت الأول.",
+      "content": "console.log('Hello World');"
+    },
+    {
+      "title": "سكربت 2",
+      "description": "هذا هو الوصف الخاص بالسكربت الثاني.",
+      "content": "function greet() { return 'Hello!'; }"
+    },
+    {
+      "title": "سكربت 3",
+      "description": "هذا هو الوصف الخاص بالسكربت الثالث.",
+      "content": "let x = 5; let y = 10; console.log(x + y);"
+    }
+  ]
+}
