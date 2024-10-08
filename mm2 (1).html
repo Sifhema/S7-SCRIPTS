@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="monetag" content="4b487600a6412ae9821093727c642ad6">
+<script src="https://alwingulla.com/88/tag.min.js" data-zone="106839" async data-cfasync="false"></script>
+<meta name="monetag" content="9ab6b30357cfd065c4b8a83f6bf56254">
+<script src="https://alwingulla.com/88/tag.min.js" data-zone="106841" async data-cfasync="false"></script>
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #00A2F1; /* Background color */
+            margin: 0;
+            padding: 20px;
+        }
+        .script-container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .script-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 8px solid #048CC8; /* Sidebar */
+        }
+        .script-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #048CC8;
+            margin-bottom: 10px;
+        }
+        .script-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .script-frame {
+            border: 2px solid #00A2F1;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            text-align: left;
+            direction: ltr;
+            margin-bottom: 10px;
+        }
+        .copy-btn {
+            padding: 10px 20px;
+            background-color: #00EFF1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #048CC8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="script-container" id="scriptContainer">
+    <!-- Scripts will be dynamically added here -->
+</div>
+
+<script>
+    // Fetch data from JSON file
+    fetch('mm2.json')
+        .then(response => response.json())
+        .then(data => {
+            const scriptContainer = document.getElementById('scriptContainer');
+            
+            data.scripts.forEach((script, index) => {
+                // Create HTML element for each script
+                const scriptBox = document.createElement('div');
+                scriptBox.classList.add('script-box');
+                
+                const title = document.createElement('h2');
+                title.classList.add('script-title');
+                title.textContent = script.title;
+                
+                const description = document.createElement('p');
+                description.classList.add('script-description');
+                description.textContent = script.description;
+                
+                const scriptFrame = document.createElement('div');
+                scriptFrame.classList.add('script-frame');
+                scriptFrame.textContent = script.content;
+                scriptFrame.id = `script-${index}`;
+                
+                const copyBtn = document.createElement('button');
+                copyBtn.classList.add('copy-btn');
+                copyBtn.textContent = 'Copy Script';
+                
+                // Copy function when button is clicked
+                copyBtn.addEventListener('click', () => {
+                    const scriptText = document.getElementById(`script-${index}`).textContent;
+                    navigator.clipboard.writeText(scriptText).then(() => {
+                        alert('Script copied successfully!');
+                    });
+                });
+                
+                // Add elements to the box
+                scriptBox.appendChild(title);
+                scriptBox.appendChild(description);
+                scriptBox.appendChild(scriptFrame);
+                scriptBox.appendChild(copyBtn);
+                
+                // Add the box to the page
+                scriptContainer.appendChild(scriptBox);
+            });
+        });
+</script>
+
+</body>
+</html>
