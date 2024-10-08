@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض السكربتات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #00A2F1; /* لون الخلفية */
+            margin: 0;
+            padding: 20px;
+        }
+        .script-container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .script-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 8px solid #048CC8; /* شريط جانبي */
+        }
+        .script-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #048CC8;
+            margin-bottom: 10px;
+        }
+        .script-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .script-frame {
+            border: 2px solid #00A2F1;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            text-align: left;
+            direction: ltr;
+            margin-bottom: 10px;
+        }
+        .copy-btn {
+            padding: 10px 20px;
+            background-color: #00EFF1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #048CC8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="script-container" id="scriptContainer">
+    <!-- سيتم إضافة السكربتات هنا ديناميكيًا -->
+</div>
+
+<script>
+    // جلب البيانات من ملف JSON
+    fetch('blox.json')
+        .then(response => response.json())
+        .then(data => {
+            const scriptContainer = document.getElementById('scriptContainer');
+            
+            data.scripts.forEach((script, index) => {
+                // إنشاء عنصر HTML لكل سكربت
+                const scriptBox = document.createElement('div');
+                scriptBox.classList.add('script-box');
+                
+                const title = document.createElement('h2');
+                title.classList.add('script-title');
+                title.textContent = script.title;
+                
+                const description = document.createElement('p');
+                description.classList.add('script-description');
+                description.textContent = script.description;
+                
+                const scriptFrame = document.createElement('div');
+                scriptFrame.classList.add('script-frame');
+                scriptFrame.textContent = script.content;
+                scriptFrame.id = `script-${index}`;
+                
+                const copyBtn = document.createElement('button');
+                copyBtn.classList.add('copy-btn');
+                copyBtn.textContent = 'نسخ السكربت';
+                
+                // وظيفة النسخ عند الضغط على الزر
+                copyBtn.addEventListener('click', () => {
+                    const scriptText = document.getElementById(`script-${index}`).textContent;
+                    navigator.clipboard.writeText(scriptText).then(() => {
+                        alert('تم نسخ السكربت بنجاح!');
+                    });
+                });
+                
+                // إضافة العناصر إلى المربع
+                scriptBox.appendChild(title);
+                scriptBox.appendChild(description);
+                scriptBox.appendChild(scriptFrame);
+                scriptBox.appendChild(copyBtn);
+                
+                // إضافة المربع إلى الصفحة
+                scriptContainer.appendChild(scriptBox);
+            });
+        });
+</script>
+
+</body>
+</html>
